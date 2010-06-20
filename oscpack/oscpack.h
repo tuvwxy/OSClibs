@@ -1,3 +1,5 @@
+#ifndef __OSC_PACK_H__
+#define __OSC_PACK_H__
 /*
  *  oscpack.h
  *
@@ -5,8 +7,6 @@
  *  Copyright 2010 Calit2, UCSD. All rights reserved.
  *
  */
-#ifndef __OSC_PACK_H__
-#define __OSC_PACK_H__
 
 #include <stdint.h>
 
@@ -15,17 +15,23 @@ extern "C" {
 #endif
 	
 /*	
- *	oscpack can be used to serialize data types into an OSC format.
+ *	oscpack() can be used to serialize data into a format specified by 
+ *	OpenSoundControl specification 1.0 (http://opensoundcontrol.org/spec-1_0).
  *
- *	The size of every atomic data type in OSC is a multiple of 32 bits. 
+ *	NOTE: oscpack() does NOT allocate memory for the argument buf and will not
+ *	check size of buf. It is the responsibility of the caller to ensure that
+ *	buf is valid and is sufficiently large. Caller may use oscsize() to get the
+ *	exact size of the OSC message.
  *
+ *	About OpenSoundControl packet:
  *	"An OSC packet consists of its contents, a contiguous block of binary data,
  *	and its size, the number of 8-bit bytes that comprise the contents. The
  *	size of an OSC packet is always a multiple of 4." from OSC specification.
  *
+ *
  *	Arguments:
- *		uint8_t* buf: Destination of the osc message. The size of the buffer
- *					  should be sufficiently large.
+ *		uint8_t* buf: Destination of the osc message buffer. The size of the 
+ *					  buffer should be sufficiently large.
  *		char* addr: OSC Address. Must start with '/' and match the syntax of
  *					URLs.
  *		char* format: See below for available formats.
@@ -37,7 +43,7 @@ extern "C" {
  *		T: True  (no argument needed)	F: False (no argument needed)
  *		N: Nil (no argument needed)		I: Infinitum (no argument needed)
  *
- *	Unsupported formats:
+ *	Unsupported formats (2010-06-20):
  *		b: blob							t: timetag
  *		r: 32 bit RGBA color (array of 4 32-bit integer?)
  *		m: 4 byte MIDI message. Bytes from MSB to LSB are: 
@@ -45,7 +51,7 @@ extern "C" {
  *		
  *
  *	Return:
- *		Size of the OSC data.
+ *		Size of the OpenSoundControl data.
  *
  *
  *	Usage example for UDP:
@@ -61,7 +67,7 @@ extern "C" {
  *		int32_t size, bit32;
  *		size = oscpack(packet+4, "/osc/address", "ifs", 123, 1.23, "osc message");
  *		bit32 = htonl(size);
- *		memcpy(packet, bit32, 4);
+ *		memcpy(packet, &bit32, 4);
  *		send(socket, packet, size+4, 0); // use TCP socket
  */
 
@@ -69,8 +75,8 @@ int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...);
 
 	
 /*
- *	oscsize can be used to calculate the size of the osc message. See oscpack
- *	for usage.
+ *	oscsize can be used to calculate the size of OpenSoundControl message. 
+ *	See oscpack for usage.
  *	
  */
 

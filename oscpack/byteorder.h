@@ -1,3 +1,5 @@
+#ifndef __BYTEORDER__
+#define __BYTEORDER__
 /*
  *  byteorder.h
  *
@@ -7,8 +9,6 @@
  *	Functions to convert endianness. Network is thought to be big-endian and
  *	the host is thought to be little-endian.
  */
-#ifndef __BYTEORDER__
-#define __BYTEORDER__
 
 #include <arpa/inet.h>
 #include <stdint.h>
