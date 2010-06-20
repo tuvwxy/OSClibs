@@ -1,0 +1,28 @@
+# ignore everything in .xcodeproj except project.pbxproj
+# !*.xcodeproj/project.pbxproj
+# *.xcodeproj/
+
+# ignore all user specific xcode stuff
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+
+# ignore all build products
+build/
+
+# ignore finder spams
+.DS_Store
+
+# ignore auto backups...
+*~
+*.swp
+*~.nib
+*(Autosaved).rtfd/
+
+# ignore other version control software
+.hg
+.svn
+CVS
