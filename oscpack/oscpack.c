@@ -11,13 +11,46 @@
 #include <stdint.h>
 #include <string.h>
 #include <assert.h>
-#include <stdarg.h>
 
-#include "byteorder.h"
+//#include "byteorder.h"
+
+#include <arpa/inet.h>
+
+//	Network to Host 
+
+// Following ntohll() and htonll() code snipits were taken from
+// http://www.codeproject.com/KB/cpp/endianness.aspx?msg=1661457
+#define ntohll(x) (((int64_t)(ntohl((int32_t)((x << 32) >> 32))) << 32) | \
+(uint32_t)ntohl(((int32_t)(x >> 32)))) //By Runner
+//#define ntohf(x) (float)ntohl(x)
+inline double ntohf(int32_t x) { x = ntohl(x); return *(float*)&x; }
+//#define ntohd(x) (double)ntohll(x)
+inline double ntohd(int64_t x) { return (double)ntohll(x); }
+
+
+//	Host to Network
+
+#define htonll(x) ntohll(x)
+//#define htonf(x) (int32_t)htonl(*(int32_t*)&x)
+inline int32_t htonf(float x) { return (int32_t)htonl(*(int32_t*)&x); }
+//#define htond(x) (int64_t)htonll(*(int64_t*)&x)
+inline int64_t htond(double x) { return (int64_t)htonll(*(int64_t*)&x); }
+
 
 int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...)
 {
 	va_list ap;
+	int32_t size;
+	
+	va_start(ap, format);
+	size = voscpack(buf, addr, format, ap);
+	va_end(ap);
+	
+	return size;
+}
+
+int32_t voscpack(uint8_t* buf, const char* addr, char* format, va_list ap)
+{
 	int32_t size = 0, len;
 	char* str;
 	int32_t bit32;
@@ -85,8 +118,6 @@ int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...)
 		buf += len;
 	}
 	
-	va_start(ap, format);
-
 	for (format = str; *format != '\0'; ++format) {
 		switch (*format) {
 			case 'i':	// 32-bit integer
@@ -150,7 +181,7 @@ int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...)
 			case 'N':	// Nil
 			case 'I':	// Infinitum
 				break;
-			// TODO: implement these formats
+				// TODO: implement these formats
 			case 'b':	// blob
 				break;
 			case 't':	// timetag
@@ -162,12 +193,9 @@ int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...)
 		}
 	}
 	
-	va_end(ap);
-	
 	assert(size % 4 == 0);
 	return size;
 }
-
 
 int32_t oscsize(const char* addr, char* format, ...)
 {

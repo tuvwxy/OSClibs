@@ -9,6 +9,7 @@
  */
 
 #include <stdint.h>
+#include <stdarg.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -73,6 +74,8 @@ extern "C" {
 
 int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...);
 
+/* Real implementation of oscpack */
+int32_t voscpack(uint8_t* buf, const char* addr, char* format, va_list arg);
 	
 /*
  *	oscsize can be used to calculate the size of OpenSoundControl message. 
