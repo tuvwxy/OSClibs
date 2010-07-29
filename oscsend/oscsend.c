@@ -1,5 +1,5 @@
 /*
- *  oscpacktest.c
+ *  oscsend.c
  *
  *  Created by Toshiro Yamada on 04/05/10.
  *  Copyright 2010 Calit2, UCSD. All rights reserved.
@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <string.h>
+#include <math.h>
 
 #include <netdb.h>
 #include <netinet/in.h>
@@ -65,6 +66,15 @@ int32_t oscraw(uint8_t** buf, int argc, char* const argv[])
 	uint8_t* mess_ptr = NULL;
 	int32_t bit32;
 	int64_t bit64;
+	union {
+		int8_t i8;
+		int16_t i16;
+		int32_t i32;
+		int64_t i64;
+		float f32;
+		double f64;
+	} atom;
+
 	int i;
 	int32_t len;
 	char bad_mess = 0;
@@ -224,14 +234,32 @@ int32_t oscraw(uint8_t** buf, int argc, char* const argv[])
 		else if (strcmp(argv[i], "-f") == 0) {
 			i++;
 			*(type_ptr++) = 'f';
-			bit32 = htonf((float)atof(argv[i]));
+			if (strcmp(argv[i], "-inf") == 0) {
+				atom.f32 = log(0);
+			}
+			else if (strcmp(argv[i], "inf") == 0) {
+				atom.f32 = 1./0.;
+			}
+			else {
+				atom.f32 = (float)atof(argv[i]);
+			}
+			bit32 = htonf(atom.f32);
 			memcpy(mess_ptr, (uint8_t*)&bit32, 4);
 			mess_ptr += 4;
 		}
 		else if (strcmp(argv[i], "-d") == 0) {
 			i++;
 			*(type_ptr++) = 'd';
-			bit64 = htond(atof(argv[i]));
+			if (strcmp(argv[i], "-inf") == 0) {
+				atom.f64 = log(0.);
+			}
+			else if (strcmp(argv[i], "inf") == 0) {
+				atom.f64 = 1./0.;
+			}
+			else {
+				atom.f64 = atof(argv[i]);
+			}
+			bit64 = htond(atom.f64);
 			memcpy(mess_ptr, (uint8_t*)&bit64, 8);
 			mess_ptr += 8;
 		}
