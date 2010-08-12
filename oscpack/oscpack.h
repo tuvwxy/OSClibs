@@ -72,10 +72,10 @@ extern "C" {
  *		send(socket, packet, size+4, 0); // use TCP socket
  */
 
-int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...);
+int32_t oscpack(uint8_t* buf, const char* addr, const char* format, ...);
 
 /* Real implementation of oscpack */
-int32_t voscpack(uint8_t* buf, const char* addr, char* format, va_list arg);
+int32_t voscpack(uint8_t* buf, const char* addr, const char* format, va_list arg);
 	
 /*
  *	oscsize can be used to calculate the size of OpenSoundControl message. 
@@ -83,7 +83,7 @@ int32_t voscpack(uint8_t* buf, const char* addr, char* format, va_list arg);
  *	
  */
 
-int32_t oscsize(const char* addr, char* format, ...);
+int32_t oscsize(const char* addr, const char* format, ...);
 
 #ifdef __cplusplus
 }

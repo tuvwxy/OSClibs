@@ -37,7 +37,7 @@ inline int32_t htonf(float x) { return (int32_t)htonl(*(int32_t*)&x); }
 inline int64_t htond(double x) { return (int64_t)htonll(*(int64_t*)&x); }
 
 
-int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...)
+int32_t oscpack(uint8_t* buf, const char* addr, const char* format, ...)
 {
 	va_list ap;
 	int32_t size;
@@ -49,7 +49,7 @@ int32_t oscpack(uint8_t* buf, const char* addr, char* format, ...)
 	return size;
 }
 
-int32_t voscpack(uint8_t* buf, const char* addr, char* format, va_list ap)
+int32_t voscpack(uint8_t* buf, const char* addr, const char* format, va_list ap)
 {
 	int32_t size = 0, len;
 	char* str;
@@ -87,7 +87,7 @@ int32_t voscpack(uint8_t* buf, const char* addr, char* format, va_list ap)
 	// First create the type tag and error check format
 	*(buf++) = ',';
 	size++;
-	str = format; // save this so we can reset the pointer position later
+	str = (char*)format; // save this so we can reset the pointer position later
 	for (; *format != '\0'; ++format) {
 		switch (*format) {
 			case 'i':	// 32-bit integer
@@ -197,7 +197,7 @@ int32_t voscpack(uint8_t* buf, const char* addr, char* format, va_list ap)
 	return size;
 }
 
-int32_t oscsize(const char* addr, char* format, ...)
+int32_t oscsize(const char* addr, const char* format, ...)
 {
 	va_list ap;
 	int32_t size = 0, len;
