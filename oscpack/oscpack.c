@@ -1,20 +1,26 @@
-/*
- *  oscpack.c
+/******************************************************************************
+ *  oscpack
  *
- *  Created by Toshiro Yamada on 04/01/10.
- *  Copyright 2010 Calit2, UCSD. All rights reserved.
+ *  Copyright (c) 2010-2011, Regents of the University of California. 
+ *  All Rights Reserved.
  *
- */
-
+ *  Sonic Arts Research and Development
+ *  California Institute for Telocommunications and Information Technology
+ *
+ *  Author: Toshiro Yamada
+ *  Contact: toyamada [at] ucsd.edu
+ *
+ ******************************************************************************/
 #include "oscpack.h"
 
-#include <stdint.h>
 #include <string.h>
 #include <assert.h>
 
-//#include "byteorder.h"
-
+#ifdef _WIN32
+#include <winsock2.h>
+#else
 #include <arpa/inet.h>
+#endif
 
 //	Network to Host 
 
