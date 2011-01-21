@@ -1,16 +1,30 @@
-/*
- *  main.c
+/******************************************************************************
+ *  oscraw
  *
- *	This is a command line tool to get hex code values of a OSC message. Types
- *	and values can be specified. Depengin on TCP or UDP implementation, size and
- *	first 4 bytes of the format will be different. TCP has 4 extra bytes at the
- *	beginning of the message to specify the size of the OSC message. UDP doesn't
- *	require this becauseo of the way underlying protocol works.
+ *  Copyright (C) 2010-2011 The Regents of the University of California. 
+ *  All Rights Reserved.
  *
- *  Created by Toshiro Yamada.
- *  Copyright 2010 Calit2, UCSD. All rights reserved.
+ *  Sonic Arts Research and Development Group
+ *  California Institute for Telocommunications and Information Technology
+ *  University of California,
+ *  La Jolla, CA 92093
  *
- */
+ *  Commercial use of this program without express permission of the
+ *  University of California, San Diego, is strictly prohibited. Information
+ *  about usage and redistribution, and a disclaimer of all warrenties are
+ *  available in the Copyright file provided with this code.
+ *
+ *  Author: Toshiro Yamada
+ *  Contact: toyamada [at] ucsd.edu
+ *
+ *
+ *	This is a command line tool to print raw hexidecimal values of an OSC 
+ *  packet. To use the command, specify tcp or udp, OSC address and arguments. 
+ *  When specified as tcp, the beginning of the packet is encoded with the size
+ *  of the OSC message in 32-bit big-endian integer. Consequently, the packet 
+ *  size is 4 bytes larger.
+ *
+ ******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -19,7 +33,7 @@
 #include "byteorder.h"
 
 #define HELP "\n" \
-"usage: OSCRaw tcp|udp /osc/address -type messages ...\n" \
+"usage: oscraw tcp|udp /osc/address -type messages ...\n" \
 "\n" \
 "The first argument should be \"tcp\" or \"udp\". If set to \"tcp\", the\n" \
 "first bytes specify the size of the OSC message.\n" \
@@ -43,8 +57,8 @@
 "        -I      Infinitum (no value)\n" \
 "\n"
 
-int main (int argc, const char * argv[]) {
-	
+int main (int argc, const char * argv[]) 
+{	
 	char* net;
 	char* osc_addr;
 	int32_t osc_size = 0;
