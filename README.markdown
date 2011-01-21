@@ -32,23 +32,25 @@ beginning of the packet.
 floating point, and string.
 
 Supported types are:
-* i: 32-bit integer
-* h: 64-bit integer
-* f: 32-bit floating point
-* d: 64-bit double floating point
-* s: string (array of char)	
-* c: ASCII character
-* T: True  (no argument needed)
-* F: False (no argument needed)
-* N: Nil (no argument needed)
-* I: Infinitum (no argument needed)
 
-Unsupported types:
-* b: blob
-* t: timetag
-* r: 32 bit RGBA color (array of 4 32-bit integer?)
-* m: 4 byte MIDI message. Bytes from MSB to LSB are: 
-     port id, status byte, data1, data2
+*   i: 32-bit integer
+*   h: 64-bit integer
+*   f: 32-bit floating point
+*   d: 64-bit double floating point
+*   s: string (array of char)	
+*   c: ASCII character
+*   T: True  (no argument needed)
+*   F: False (no argument needed)
+*   N: Nil (no argument needed)
+*   I: Infinitum (no argument needed)
+
+Unsupported types are (TODO...):
+
+*   b: blob
+*   t: timetag
+*   r: 32 bit RGBA color (array of 4 32-bit integer?)
+*   m: 4 byte MIDI message. Bytes from MSB to LSB are: 
+    port id, status byte, data1, data2
 
 Additionaly, `oscsize()` can be used to find out the size of the OSC packet.
 
@@ -56,7 +58,7 @@ Additionaly, `oscsize()` can be used to find out the size of the OSC packet.
 
 `oscraw` is a commad-line tool to print hexidecimal values of the OSC packet.
 
-    ./oscraw udp /my/address -i 123 -f 1.23 -s "this is a string"
+    $ ./oscraw udp /my/address -i 123 -f 1.23 -s "this is a string"
     
     8-bit hex data is:
     2f 6d 79 2f 61 64 64 72 65 73 73 00 2c 69 66 73 
@@ -67,7 +69,7 @@ Additionaly, `oscsize()` can be used to find out the size of the OSC packet.
 
 `oscsend` is a command-line tool to send OSC message via TCP or UDP.
 
-    ./oscsend 127.0.0.1 7374 udp /my/address -i 123 -f 1.23 -s "this is a string"
+    $ ./oscsend 127.0.0.1 7374 udp /my/address -i 123 -f 1.23 -s "this is a string"
 
 Compilation
 -----------
