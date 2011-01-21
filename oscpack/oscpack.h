@@ -1,11 +1,18 @@
 /******************************************************************************
  *  oscpack
  *
- *  Copyright (c) 2010-2011, Regents of the University of California. 
+ *  Copyright (C) 2010-2011 The Regents of the University of California. 
  *  All Rights Reserved.
  *
- *  Sonic Arts Research and Development
+ *  Sonic Arts Research and Development Group
  *  California Institute for Telocommunications and Information Technology
+ *  University of California,
+ *  La Jolla, CA 92093
+ *
+ *  Commercial use of this program without express permission of the
+ *  University of California, San Diego, is strictly prohibited. Information
+ *  about usage and redistribution, and a disclaimer of all warrenties are
+ *  available in the Copyright file provided with this code.
  *
  *  Author: Toshiro Yamada
  *  Contact: toyamada [at] ucsd.edu

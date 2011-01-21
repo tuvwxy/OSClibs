@@ -1,10 +1,26 @@
-/*
- *  oscsend.c
+/******************************************************************************
+ *  oscsend
  *
- *  Created by Toshiro Yamada on 04/05/10.
- *  Copyright 2010 Calit2, UCSD. All rights reserved.
+ *  Copyright (C) 2010-2011 The Regents of the University of California. 
+ *  All Rights Reserved.
  *
- */
+ *  Sonic Arts Research and Development Group
+ *  California Institute for Telocommunications and Information Technology
+ *  University of California,
+ *  La Jolla, CA 92093
+ *
+ *  Commercial use of this program without express permission of the
+ *  University of California, San Diego, is strictly prohibited. Information
+ *  about usage and redistribution, and a disclaimer of all warrenties are
+ *  available in the Copyright file provided with this code.
+ *
+ *  Author: Toshiro Yamada
+ *  Contact: toyamada [at] ucsd.edu
+ *
+ *
+ *  This is a command line tool to send OSC message via TCP or UDP.
+ *
+ ******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
