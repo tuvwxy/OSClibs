@@ -1,7 +1,7 @@
 OSCLibs README
 ==============
 
-This is a collection of OpenSoundControl (OSC) command-line tools and libraries. 
+This is a collection of [OpenSoundControl](http://opensoundcontrol.org/) (OSC) protocol command-line tools and libraries. 
 
 Tools & Libraries
 -----------------
