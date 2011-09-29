@@ -21,7 +21,7 @@
 #ifndef __OSC_PACK_H__
 #define __OSC_PACK_H__
 
-#if __STDC_VERSION__ >= 199901L
+#if (__STDC_VERSION__ >= 199901L) || (defined(__cplusplus) && defined(unix))
 #include <stdint.h>
 #elif defined(_WIN32)
 #if (_MSC_VER < 1300) 
